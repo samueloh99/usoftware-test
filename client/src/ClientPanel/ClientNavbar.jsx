@@ -60,7 +60,9 @@ const StyledListbox = styled("ul")(
     background: ${theme.palette.mode === "dark" ? grey[900] : "#fff"};
     border: 1px solid ${theme.palette.mode === "dark" ? grey[700] : grey[200]};
     color: ${theme.palette.mode === "dark" ? grey[300] : grey[900]};
-    box-shadow: 0px 4px 30px ${theme.palette.mode === "dark" ? grey[900] : grey[200]};
+    box-shadow: 0px 4px 30px ${
+      theme.palette.mode === "dark" ? grey[900] : grey[200]
+    };
     z-index: 1;
     `
 );
@@ -76,8 +78,12 @@ const StyledMenuItem = styled(MenuItem)(
     }
     
     &.${menuItemClasses.focusVisible} {
-      outline: 3px solid ${theme.palette.mode === "dark" ? blue[600] : blue[200]};
-      background-color: ${theme.palette.mode === "dark" ? grey[800] : grey[100]};
+      outline: 3px solid ${
+        theme.palette.mode === "dark" ? blue[600] : blue[200]
+      };
+      background-color: ${
+        theme.palette.mode === "dark" ? grey[800] : grey[100]
+      };
       color: ${theme.palette.mode === "dark" ? grey[300] : grey[900]};
     }
   
@@ -86,7 +92,9 @@ const StyledMenuItem = styled(MenuItem)(
     }
   
     &:hover:not(.${menuItemClasses.disabled}) {
-      background-color: ${theme.palette.mode === "dark" ? grey[800] : grey[100]};
+      background-color: ${
+        theme.palette.mode === "dark" ? grey[800] : grey[100]
+      };
       color: ${theme.palette.mode === "dark" ? grey[300] : grey[900]};
     }
     `
@@ -124,9 +132,11 @@ const ClientNavbar = () => {
 
   return (
     <div
-      className={`flex flex-col z-10 sticky top-0 w-full sm:h-[4rem] h-[4rem] bg-white border-b-[1px] border-b-[#eeeff0] font-primary`}>
+      className={`flex flex-col z-10 sticky top-0 w-full sm:h-[4rem] h-[4rem] bg-white border-b-[1px] border-b-[#eeeff0] font-primary`}
+    >
       <div
-        className={`sm:h-full h-[4rem] md:pl-[20px] sm:pl-[1rem] pl-[8px] flex items-center justify-between sm:border-none border-b-[1px] border-[#eeeff0] sm:shadow-none`}>
+        className={`sm:h-full h-[4rem] md:pl-[20px] sm:pl-[1rem] pl-[8px] flex items-center justify-between sm:border-none border-b-[1px] border-[#eeeff0] sm:shadow-none`}
+      >
         {/* Left section */}
         <div>
           <img className="h-12" src="/background/A-consultant-logo.png" />
@@ -135,7 +145,8 @@ const ClientNavbar = () => {
         {/* Center section */}
         <div>
           <p className="text-sky-400 text-xl gap-1 flex items-center sm:visible invisible">
-            <PiTimerLight className="text-[25px]" /> {date.toLocaleTimeString()}
+            <PiTimerLight className="text-[25px]" /> {date.toLocaleTimeString()}{" "}
+            ({Intl.DateTimeFormat().resolvedOptions().timeZone})
           </p>
         </div>
 
@@ -145,27 +156,38 @@ const ClientNavbar = () => {
           <div className="flex items-center border-l-[1px] border-l-[#eeeff0] hover:bg-gray-100">
             <Dropdown>
               <MenuButton>
-                <Tooltip className="flex items-center" title="Profile" arrow placement="bottom">
+                <Tooltip
+                  className="flex items-center"
+                  title="Profile"
+                  arrow
+                  placement="bottom"
+                >
                   <Avatar className="m-3 cursor-pointer capitalize ">
                     {loggedUser?.username[0]}
                   </Avatar>
-                  <span className="capitalize pr-3">{loggedUser?.username}</span>
+                  <span className="capitalize pr-3">
+                    {loggedUser?.username}
+                  </span>
                 </Tooltip>
               </MenuButton>
 
               <Menu slots={{ listbox: StyledListbox }}>
                 <div className="p-2 flex justify-center items-center">
-                  <div className="text-lg font-primary">{loggedUser?.username}</div>
+                  <div className="text-lg font-primary">
+                    {loggedUser?.username}
+                  </div>
                 </div>
                 <Divider />
                 <StyledMenuItem
                   onClick={handleLogout}
-                  className="text-gray-600 flex items-center gap-4 font-primary">
+                  className="text-gray-600 flex items-center gap-4 font-primary"
+                >
                   <PiSignOutLight className="text-xl" /> Logout
                 </StyledMenuItem>
                 <StyledMenuItem
                   onClick={handleChangePasswordOpen}
-                  className="text-gray-600 flex items-center gap-4 font-primary">
+                  className="text-gray-600 flex items-center gap-4 font-primary"
+                >
                   <PiKeyLight className="text-xl" /> Change Password
                 </StyledMenuItem>
               </Menu>
@@ -173,7 +195,10 @@ const ClientNavbar = () => {
           </div>
         </div>
       </div>
-      <ChangePassword open={openPasswordChange} setOpen={setOpenPasswordChange} />
+      <ChangePassword
+        open={openPasswordChange}
+        setOpen={setOpenPasswordChange}
+      />
     </div>
   );
 };

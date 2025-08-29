@@ -133,7 +133,12 @@ const Header = () => {
 
   ////////////////////////////////////// FUNCTIONS ////////////////////////////////////////
   const toggleDrawer = (anchor, open) => (event) => {
-    if (event && event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) return;
+    if (
+      event &&
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    )
+      return;
     setState({ ...state, [anchor]: open });
   };
   const handleItemClick = (itemId) => {
@@ -152,9 +157,12 @@ const Header = () => {
       sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 350 }} // Drawer Width
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}>
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
       <Toolbar className="bg-sky-400 text-white mt-16">
-        <NotificationsActiveOutlined sx={{ fontSize: "30px", marginRight: "5px" }} />
+        <NotificationsActiveOutlined
+          sx={{ fontSize: "30px", marginRight: "5px" }}
+        />
         <p className="text-2xl font-Mulish">Notifications</p>
         <Close className="text-white mt-1 cursor-pointer ml-28" />
       </Toolbar>
@@ -222,22 +230,22 @@ const Header = () => {
       }),
     }),
   }));
-  const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop != "open" })(
-    ({ theme, open }) => ({
-      width: drawerWidth,
-      flexShrink: 0,
-      whiteSpace: "nowrap",
-      boxSizing: "border-box",
-      ...(open && {
-        ...openedMixin(theme),
-        "& .MuiDrawer-paper": openedMixin(theme),
-      }),
-      ...(!open && {
-        ...closedMixin(theme),
-        "& .MuiDrawer-paper": closedMixin(theme),
-      }),
-    })
-  );
+  const Drawer = styled(MuiDrawer, {
+    shouldForwardProp: (prop) => prop != "open",
+  })(({ theme, open }) => ({
+    width: drawerWidth,
+    flexShrink: 0,
+    whiteSpace: "nowrap",
+    boxSizing: "border-box",
+    ...(open && {
+      ...openedMixin(theme),
+      "& .MuiDrawer-paper": openedMixin(theme),
+    }),
+    ...(!open && {
+      ...closedMixin(theme),
+      "& .MuiDrawer-paper": closedMixin(theme),
+    }),
+  }));
   const CustomListItem = styled(ListItemButton)(({ theme, selected }) => ({
     color: "rgb(107 114 128)",
     "&:hover": {
@@ -268,12 +276,14 @@ const Header = () => {
             sx={{
               marginRight: 5,
               ...(open && { display: "none" }),
-            }}>
+            }}
+          >
             <Menu />
           </IconButton>
 
           <Typography className="text-red-400" variant="h6">
-            <TimerOutlined className="mb-1" /> {date.toLocaleTimeString()}
+            <TimerOutlined className="mb-1" /> {date.toLocaleTimeString()} (
+            {Intl.DateTimeFormat().resolvedOptions().timeZone})
           </Typography>
 
           <Tooltip title="Timer" arrow placement="bottom">
@@ -289,7 +299,8 @@ const Header = () => {
                   className="hover:text-red-400"
                   onClick={toggleDrawer(anchor, true)}
                   size="large"
-                  aria-label="menu">
+                  aria-label="menu"
+                >
                   <NotificationsActiveOutlined />
                 </IconButton>
               </Tooltip>
@@ -297,7 +308,8 @@ const Header = () => {
                 anchor={anchor}
                 open={state[anchor]}
                 onClose={toggleDrawer(anchor, false)}
-                onOpen={toggleDrawer(anchor, true)}>
+                onOpen={toggleDrawer(anchor, true)}
+              >
                 {Notifications(anchor)}
               </SwipeableDrawer>
             </React.Fragment>
@@ -323,29 +335,41 @@ const Header = () => {
                 sx={{ display: "block" }}
                 className={clsx({
                   "hover:text-sky-400 hover:border-l-[3px] hover:border-l-sky-400 transition-all mt-2": true,
-                  "text-sky-600 border-l-[3px] border-l-sky-600": selectedItem === text.id,
+                  "text-sky-600 border-l-[3px] border-l-sky-600":
+                    selectedItem === text.id,
                   "text-gray-500": selectedItem != text.id,
                 })}
-                onClick={() => handleItemClick(text.id)}>
+                onClick={() => handleItemClick(text.id)}
+              >
                 <Link to={text.link}>
                   <CustomListItem
-                    sx={{ justifyContent: open ? "initial" : "center", minHeight: 50, px: 2.5 }}
+                    sx={{
+                      justifyContent: open ? "initial" : "center",
+                      minHeight: 50,
+                      px: 2.5,
+                    }}
                     className={clsx({
                       "hover:text-sky-400 hover:border-l-4 hover:border-l-sky-400 transition-all": true,
-                      "text-sky-600 border-l-4 border-l-sky-600": selectedItem === text.id,
+                      "text-sky-600 border-l-4 border-l-sky-600":
+                        selectedItem === text.id,
                       "text-gray-500": selectedItem != text.id,
                     })}
                     onClick={() => handleItemClick(text.id)}
-                    selected={selectedItem === text.id}>
+                    selected={selectedItem === text.id}
+                  >
                     <ListItemIcon
                       sx={{
                         minWidth: 0,
                         mr: open ? 3 : "auto",
                         justifyContent: "center",
-                      }}>
+                      }}
+                    >
                       {text.icon}
                     </ListItemIcon>
-                    <ListItemText primary={text.title} sx={{ opacity: open ? 1 : 0 }} />
+                    <ListItemText
+                      primary={text.title}
+                      sx={{ opacity: open ? 1 : 0 }}
+                    />
                     {open &&
                     (text.id === 2 ||
                       text.id === 3 ||
